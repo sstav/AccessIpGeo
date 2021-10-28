@@ -23,7 +23,8 @@ def get_list_details(file_name):
             continue
 
         response = requests.get("https://geolocation-db.com/json/" + ip + "&position=true").json()
-        print(response)
+        if valid_ip(response['IPv4']):
+            print(response)
 
 
 # Main
