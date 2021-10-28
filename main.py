@@ -1,6 +1,5 @@
 import socket
 
-
 # Functions
 import requests as requests
 
@@ -23,8 +22,9 @@ def get_list_details(file_name):
         if not valid_ip(ip):
             continue
 
-        response = requests.get("https://geolocation-db.com/json/"+ip+"&position=true").json()
+        response = requests.get("https://geolocation-db.com/json/" + ip + "&position=true").json()
         print(response)
+
 
 # Main
 
