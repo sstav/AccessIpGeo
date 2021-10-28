@@ -1,16 +1,32 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import socket
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Functions
+import requests as requests
 
 
-# Press the green button in the gutter to run the script.
+def valid_ip(ip):
+    try:
+        socket.inet_aton(ip)
+        # legal
+        return True
+    except socket.error:
+        return False
+
+
+# Not legal
+def get_list_details(file_name):
+    file = open(file_name)
+
+    for line in file.readlines():
+        ip = line.split(" ")[0]
+        if not valid_ip(ip):
+            continue
+
+        response = requests.get("https://geolocation-db.com/json/"+ip+"&position=true").json()
+        print(response)
+
+# Main
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    get_list_details("access.log")
